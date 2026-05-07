@@ -1,7 +1,10 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
-import os
 from groq import Groq
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
 
 app = FastAPI()
 
@@ -13,7 +16,7 @@ class ChatRequest(BaseModel):
 @app.post("/chat")
 async def chat(req: ChatRequest):
     completion = client.chat.completions.create(
-        model="llama3-8b-8192",
+        model="llama3-8b-instant",
         messages=[
             {"role": "system", "content": "You are a helpful assistant."},
             {"role": "user", "content": req.message}
